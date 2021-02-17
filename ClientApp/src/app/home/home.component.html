@@ -1,0 +1,46 @@
+<button *ngIf="!isCreating && !isEditing" (click)="isCreating = true">Registrar producto</button>
+<form *ngIf="isCreating" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <input formControlName="id" placeholder="ID">
+  <input formControlName="name" placeholder="Nombre">
+  <input formControlName="price" placeholder="Precio">
+  <input formControlName="stock" placeholder="Stock">
+  <br>
+  <button>Crear</button>
+  <button type="button" (click)="isCreating = false">Cerrar</button>
+</form>
+
+<form *ngIf="isEditing" [formGroup]="productEditForm" (ngSubmit)="onSubmitEdit()">
+  <input formControlName="id" placeholder="ID">
+  <input formControlName="name" placeholder="Nombre">
+  <input formControlName="price" placeholder="Precio">
+  <input formControlName="stock" placeholder="Stock">
+  <br>
+  <button>Editar</button>
+  <button type="button" (click)="isEditing = false">Cerrar</button>
+</form>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="products.length > 0 && !isCreating && !isEditing">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Precio</th>
+      <th>Stock</th>
+      <th>Fecha Registro</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products; let i = index">
+      <td>{{ product.id }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.price }}</td>
+      <td>{{ product.stock }}</td>
+      <td>{{ product.fec_save }}</td>
+      <td>
+        <button (click)="handleEdit(product, i)">EDITAR</button>
+        <button (click)="handleDelete(product, i)">ELIMINAR</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
